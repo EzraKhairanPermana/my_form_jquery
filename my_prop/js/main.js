@@ -3,10 +3,27 @@ $(document).ready(function () {
         e.preventDefault();
 
         if ($('input[name=method]').length == 1 && $(this).attr('method')) {
-            $('#error_message').append('<div class="alert alert-danger" role="alert">There are two methods in one form !</div>')
+            $('#error_message').append('<div class="alert alert-danger" role="alert">There are two methods in one form !</div>');
+            $('#lbtn').attr('disabled', true);
+            $('#lbtn').addClass('disabled');
         } else {
             const method = ($('input[name=method]').length < 1) ? $(this).attr('method') : String($('input[name=method]').val());
-            console.log(method);
+
+            $.ajax({
+                url: '{{ Main_url }}',
+                method: method,
+                data: {
+                    // 'Pkey': 'Pvalue',
+                    'email': $('#email').val(),
+                    'password': $('#pw').val()
+                },
+                success: function (r) {
+                    // Code Here
+                },
+                error: function (JqXHR, response) {
+                    // Code here
+                }
+            })
         }
     });
 
